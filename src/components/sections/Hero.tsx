@@ -21,16 +21,19 @@ export function Hero() {
         </Reveal>
       </div>
 
+      {/* The showreel is 1920x1080 and the artboard's band is 1440x524, so
+          `cover` trims it top and bottom — see Hero.module.css. Muted and
+          inline so it may autoplay; the band's gradient shows through until
+          the first frame decodes, which is why there is no poster. */}
       <div className={styles.video}>
-        <span className={styles.videoFallback}>hero video</span>
-        {/* Drop the supplied film in at public/videos/hero.mp4 (poster optional). */}
         <video
           autoPlay
           muted
           loop
           playsInline
           preload="metadata"
-          poster="/videos/hero-poster.jpg"
+          tabIndex={-1}
+          aria-label="عرض أعمال Transformix"
         >
           <source src="/videos/hero.webm" type="video/webm" />
           <source src="/videos/hero.mp4" type="video/mp4" />

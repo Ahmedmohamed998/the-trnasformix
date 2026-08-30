@@ -58,23 +58,15 @@
     radial-gradient(120% 140% at 50% 0%, #eef2fa 0%, #ffffff 62%);
 }
 
+/* The showreel is 1920 x 1080 and this band is 1440 x 524, so `cover` keeps
+   the band full-bleed as drawn and trims the film evenly top and bottom. Its
+   action sits centre-frame, so centre the crop rather than anchor it. */
 .video video {
+  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-}
-
-/* Sits behind the film so the block still reads as intentional before the
-   asset is dropped in at public/videos/hero.mp4. */
-.videoFallback {
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.4rem;
-  color: rgba(87, 88, 91, 0.45);
-  pointer-events: none;
+  object-position: center;
 }
 
 @media (max-width: 1024px) {
@@ -94,8 +86,8 @@
     height: auto;
   }
 
-  /* Stays positioned so the placeholder label keeps to this block rather than
-     stretching across the whole hero. */
+  /* Holds the artboard ratio once the band stops being pinned inside the
+     fixed-height hero. */
   .video {
     position: relative;
     left: auto;

@@ -1,0 +1,234 @@
+/* Figma 2096:4778 "Frame 1618872774" — 1440 x 769 */
+.section {
+  padding: 0.8rem;
+  background: var(--bg-main);
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 75.3rem;
+  padding: 10rem 27.2rem;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 89.6rem;
+  height: 53.7rem;
+}
+
+.head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.spacer {
+  width: 100%;
+  height: 4.2rem;
+}
+
+.title {
+  width: 100%;
+  font-size: 4.8rem;
+  font-weight: 500;
+  color: var(--primary);
+  text-align: center;
+}
+
+.list {
+  width: 100%;
+  padding-top: 4rem;
+}
+
+.listInner {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  padding-bottom: 0.1rem;
+  border-bottom: 1px solid var(--text-secondary);
+}
+
+.item {
+  width: 100%;
+  border-top: 1px solid var(--text-secondary);
+  transition: border-color var(--dur) var(--ease-out);
+}
+
+.itemOpen {
+  border-top-color: var(--primary-alt);
+}
+
+.trigger {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  padding-block: 1.8rem;
+  text-align: right;
+}
+
+.itemOpen .trigger {
+  padding-block: 1.6rem;
+}
+
+.question {
+  display: flex;
+  align-items: flex-start;
+  gap: 2rem;
+}
+
+.number {
+  width: 2.8rem;
+  padding-top: 0.4rem;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: right;
+  transition: color var(--dur) var(--ease-out);
+}
+
+.itemOpen .number {
+  padding-top: 0;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.questionText {
+  width: 39.2rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-primary);
+  text-align: right;
+  word-break: break-word;
+  transition: color var(--dur) var(--ease-out);
+}
+
+.itemOpen .questionText {
+  font-weight: 700;
+}
+
+.trigger:hover .questionText {
+  color: var(--primary);
+}
+
+.marker {
+  flex-shrink: 0;
+  margin-top: 0.4rem;
+}
+
+.markerCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 3.2rem;
+  height: 3.2rem;
+  border-radius: 50%;
+  background: rgba(240, 237, 232, 0.07);
+  transition:
+    background-color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.itemOpen .markerCircle {
+  background: var(--primary-alt);
+}
+
+.trigger:hover .markerCircle {
+  transform: scale(1.08);
+  background: var(--blue-light);
+}
+
+.itemOpen .trigger:hover .markerCircle {
+  background: var(--primary);
+}
+
+.markerIcon {
+  width: 1.4rem;
+  height: 1.4rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.itemOpen .markerIcon {
+  transform: rotate(180deg);
+}
+
+/* Collapsible body — grid-rows keeps the height animatable without a fixed px. */
+.answer {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 420ms var(--ease-in-out);
+}
+
+.answerOpen {
+  grid-template-rows: 1fr;
+}
+
+.answerInner {
+  overflow: hidden;
+}
+
+.answerText {
+  padding: 0 3.3rem 3.2rem 3.6rem;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: right;
+  word-break: break-word;
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease-out) 120ms;
+}
+
+.answerOpen .answerText {
+  opacity: 1;
+}
+
+@media (max-width: 1024px) {
+  .panel {
+    height: auto;
+    padding: 8rem 2.4rem;
+  }
+
+  .container {
+    height: auto;
+  }
+
+  .title {
+    font-size: 3.2rem;
+  }
+
+  .questionText {
+    width: auto;
+    flex: 1;
+  }
+
+  .question {
+    flex: 1;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 2.4rem;
+  }
+
+  .questionText,
+  .answerText {
+    font-size: 1.6rem;
+  }
+
+  .answerText {
+    padding-inline: 0 0;
+  }
+}

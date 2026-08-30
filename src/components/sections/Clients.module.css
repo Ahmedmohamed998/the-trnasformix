@@ -1,0 +1,126 @@
+/* Figma 2096:4655 "Frame 165" — 1440 x 426 */
+.section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4.3rem;
+  /* The artboard's parent frame clips the last 58px of the bottom padding,
+     which is what makes the full page measure 9682 rather than 9740. */
+  padding: 10rem 0 4.2rem;
+  background: var(--bg-main);
+}
+
+.title {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 7.5rem;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-align: center;
+}
+
+/* Logos read the same in either script, so the rail runs left-to-right. The
+   viewport must be LTR too: as an RTL flex container it would park the
+   (much wider) track against its right edge, and the animation would then walk
+   it straight off screen. */
+.viewport {
+  direction: ltr;
+  position: relative;
+  width: 100%;
+  height: 10.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background: var(--bg-main);
+}
+
+/* The rail holds RAIL_COPIES identical sets and travels exactly one set per
+   cycle, so the seam is invisible and the strip is never empty — one set is
+   ~2153px, so four sets keep even an ultra-wide viewport covered throughout. */
+.track {
+  display: flex;
+  gap: 0.1rem;
+  height: 7rem;
+  width: max-content;
+  will-change: transform;
+  animation: marquee 42s linear infinite;
+}
+
+.viewport:hover .track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  height: 7rem;
+  padding-block: 2.4rem;
+}
+
+.logo {
+  position: relative;
+  flex-shrink: 0;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.cell:hover .logo {
+  transform: scale(1.06);
+}
+
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* One logo is cropped inside its frame on the artboard. */
+.cropped {
+  overflow: hidden;
+}
+
+.cropped img {
+  position: absolute;
+  left: -0.27%;
+  top: -16.67%;
+  width: 100.54%;
+  height: 133.33%;
+  max-width: none;
+  object-fit: fill;
+}
+
+@media (max-width: 1024px) {
+  .section {
+    padding: 8rem 0;
+    gap: 3.2rem;
+  }
+
+  .title {
+    height: auto;
+    font-size: 3rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .title {
+    font-size: 2.4rem;
+  }
+
+  .track {
+    animation-duration: 26s;
+  }
+}

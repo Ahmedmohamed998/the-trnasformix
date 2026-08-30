@@ -1,0 +1,127 @@
+/* Figma "Button 8" — 218.328 x 61 with a 53-tall pill pinned 8px from the top.
+   Resting look is the `Frame 3` variant. Hover adds a hard drop shadow beneath
+   the pill (gradient and top highlight unchanged); press swaps in the artboard's
+   `Variant4`: deeper gradient, dark inset shadow, no border, dimmed label. */
+.root {
+  position: relative;
+  display: block;
+  width: 21.8328rem;
+  height: 6.1rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  /* No overflow clip: the pill's bottom edge sits on the frame's bottom edge,
+     so the hover shadow has to be allowed to render past it. */
+}
+
+.pill {
+  position: absolute;
+  left: 0;
+  top: 0.8rem;
+  width: 21.8328rem;
+  height: 5.3rem;
+  border: 0.2rem solid var(--primary);
+  border-radius: 6.3rem;
+  background-image: var(--btn-gradient);
+  background-clip: padding-box;
+  box-shadow: var(--btn-inner-shadow);
+  transition: box-shadow var(--dur) var(--ease-out);
+}
+
+/* The pressed variant is layered on top and cross-faded, so the gradient and
+   the inset shadow animate instead of swapping abruptly. Its -2px inset covers
+   the resting border, which `Variant4` does not have. */
+.pill::after {
+  content: "";
+  position: absolute;
+  inset: -0.2rem;
+  border-radius: inherit;
+  background-image: var(--btn-gradient-active);
+  box-shadow: var(--btn-inner-shadow-active);
+  opacity: 0;
+  transition: opacity var(--dur) var(--ease-out);
+}
+
+.label {
+  position: absolute;
+  z-index: 1;
+  left: calc(50% - 0.002rem);
+  top: calc(50% + 0.4rem);
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: var(--text-inverse);
+  text-align: center;
+  transition: color var(--dur) var(--ease-out);
+}
+
+.root:hover .pill,
+.root:focus-visible .pill {
+  box-shadow:
+    var(--btn-inner-shadow),
+    0 0.7rem 0 0 var(--btn-drop-hover);
+}
+
+.root:active .pill {
+  box-shadow: var(--btn-inner-shadow);
+}
+
+.root:active .pill::after {
+  opacity: 1;
+}
+
+.root:active .label {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+@media (max-width: 520px) {
+  .root {
+    width: 20.4rem;
+    height: 5.8rem;
+  }
+
+  .pill {
+    width: 20.4rem;
+    height: 5rem;
+  }
+
+  .label {
+    font-size: 1.6rem;
+  }
+}
+
+/* Figma I2166:28456;1996:4521 — the same pill scaled to 128.85 x 36 inside the
+   small-screen menu. Higher specificity than the 520px block above on purpose:
+   this size is deliberate, not a viewport fallback. */
+.root.compact {
+  width: 12.885rem;
+  height: 3.6rem;
+}
+
+.root.compact .pill {
+  top: 0.472rem;
+  width: 12.885rem;
+  height: 3.1279rem;
+  border-width: 0.118rem;
+  box-shadow: inset 0 0.2361rem 0.059rem 0 rgba(255, 255, 255, 0.4);
+}
+
+.root.compact .pill::after {
+  inset: -0.118rem;
+}
+
+.root.compact .label {
+  top: calc(50% + 0.236rem);
+  font-size: 1.062rem;
+}
+
+.root.compact:hover .pill,
+.root.compact:focus-visible .pill {
+  box-shadow:
+    inset 0 0.2361rem 0.059rem 0 rgba(255, 255, 255, 0.4),
+    0 0.4rem 0 0 var(--btn-drop-hover);
+}
+
+.root.compact:active .pill {
+  box-shadow: inset 0 0.2361rem 0.059rem 0 rgba(255, 255, 255, 0.4);
+}

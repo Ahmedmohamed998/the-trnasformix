@@ -1,0 +1,128 @@
+/* Figma 2096:4498 "Desktop - 75" — 1440 x 1009 including the 82px nav bar,
+   which is rendered by <Navbar> just above this section. */
+.hero {
+  position: relative;
+  width: 100%;
+  height: 92.7rem;
+  background: var(--bg-main);
+  overflow: hidden;
+}
+
+.content {
+  position: absolute;
+  left: 23.2rem;
+  top: 11.2rem;
+  width: 100rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3.2rem;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.6rem;
+  width: 100%;
+  height: 19.8rem;
+  text-align: center;
+}
+
+.title {
+  width: 100%;
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  word-break: break-word;
+}
+
+.subtitle {
+  width: 64.2rem;
+  font-size: 1.8rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  word-break: break-word;
+}
+
+/* The artboard leaves 1440 x 524 clear beneath the copy for the hero film. */
+.video {
+  position: absolute;
+  left: 0;
+  top: 40.3rem;
+  width: 100%;
+  height: 52.4rem;
+  overflow: hidden;
+  background:
+    radial-gradient(120% 140% at 50% 0%, #eef2fa 0%, #ffffff 62%);
+}
+
+.video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Sits behind the film so the block still reads as intentional before the
+   asset is dropped in at public/videos/hero.mp4. */
+.videoFallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  color: rgba(87, 88, 91, 0.45);
+  pointer-events: none;
+}
+
+@media (max-width: 1024px) {
+  .hero {
+    height: auto;
+    padding-top: 6.4rem;
+  }
+
+  .content {
+    position: static;
+    width: min(100rem, 100%);
+    margin-inline: auto;
+    padding-inline: 2.4rem;
+  }
+
+  .copy {
+    height: auto;
+  }
+
+  /* Stays positioned so the placeholder label keeps to this block rather than
+     stretching across the whole hero. */
+  .video {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1440 / 524;
+    margin-top: 6.4rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding-top: 4.8rem;
+  }
+
+  .title {
+    font-size: 2.8rem;
+  }
+
+  .subtitle {
+    width: 100%;
+    font-size: 1.6rem;
+  }
+
+  .video {
+    aspect-ratio: 16 / 10;
+    margin-top: 4.8rem;
+  }
+}

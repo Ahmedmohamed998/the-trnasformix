@@ -1,26 +1,176 @@
 @import "tailwindcss";
 
+/* ==========================================================================
+   Transformix — design tokens
+   Source: Figma "transformix-2" · node 2096:4497 (1440 px artboard)
+
+   SIZING CONVENTION
+   -----------------
+   The root font-size is 10px, so **1rem === 10 design px**. Every length in
+   this project is therefore the Figma px value divided by ten (18px -> 1.8rem).
+   Between 1024px and 1440px the root font-size is driven by the viewport, so
+   the whole composition scales proportionally and stays an exact match of the
+   artboard at any desktop width. Below 1024px the scale locks and the
+   components switch to their tablet / mobile layouts.
+   ========================================================================== */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Brand */
+  --primary: #1c4499;
+  --primary-alt: #1d4497;
+  --primary-gradient-end: #1f77b7;
+  --blue-dark: #153373;
+  --blue-light: #e8ecf5;
+  --blue-light-active: #b9c5df;
+  --yellow-light: #fef8eb;
+  /* Small-screen menu — Figma 2164:28439 "Navbar 9". */
+  --ocean-blue: #005bc5;
+  --ocean-dark: #1e1e1e;
+
+  /* Text */
+  --text-primary: #1a1a1a;
+  --text-secondary: #57585b;
+  --text-inverse: #ffffff;
+  --text-inverse-li: #dadada;
+  --unactive: #3a3a3a;
+  --subtitle: #252525;
+  /* الخدمات drop-down rows — Figma 2166:28462 "Links container". */
+  --menu-text: #455a64;
+  --menu-text-active: #030723;
+  --menu-hover: #f0f5ff;
+
+  /* Surfaces */
+  --bg-main: #ffffff;
+  --bg-card: #fcfbfa;
+
+  /* Effects */
+  --btn-gradient: linear-gradient(
+    188.97262063808836deg,
+    var(--primary) 23.886%,
+    var(--primary-gradient-end) 135.2%
+  );
+  --btn-inner-shadow: inset 0 4px 1px 0 rgba(255, 255, 255, 0.4);
+  /* Figma "Button 8" variant `Variant4` — the pressed state: a deeper gradient,
+     a dark inset shadow, no border and dimmed text. */
+  --btn-gradient-active: linear-gradient(
+    188.97262063808836deg,
+    rgb(8, 75, 176) 23.886%,
+    rgb(25, 117, 183) 135.2%
+  );
+  --btn-inner-shadow-active: inset 0 4px 5px 0 rgba(0, 0, 0, 0.47);
+  /* Hover: a hard, unblurred drop shadow under the pill. Sampled from the
+     reference — the gradient and the white top highlight are unchanged. */
+  --btn-drop-hover: #050d1f;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --dur-fast: 200ms;
+  --dur: 320ms;
+  --dur-slow: 620ms;
+
+  /* Width of the vertical scrollbar, measured at runtime (see layout.tsx). */
+  --sbw: 0px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* 1rem = 10px, honouring the reader's own base size at full scale. */
+html {
+  font-size: 62.5%;
+  -webkit-text-size-adjust: 100%;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/* Proportional down-scale of the 1440 artboard. */
+@media (max-width: 1440px) {
+  html {
+    font-size: calc((100vw - var(--sbw)) / 144);
+  }
+}
+
+/* Below this the layout reflows instead of shrinking. */
+@media (max-width: 1024px) {
+  html {
+    font-size: 62.5%;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-main);
+  color: var(--text-primary);
+  font-family: var(--font-kufi), "Noto Kufi Arabic", "Segoe UI", sans-serif;
+  font-size: 1.6rem;
+  line-height: normal;
+  overflow-x: hidden;
+}
+
+/* The artboard sets `leading-normal` everywhere and relies on Noto Kufi's own
+   metrics (~1.9em) for its line boxes — never override this globally. */
+h1, h2, h3, h4, h5, h6, p {
+  line-height: normal;
+  margin: 0;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+img,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--blue-light-active);
+  color: var(--blue-dark);
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Scroll-reveal primitives — used by the <Reveal> component.
+   -------------------------------------------------------------------------- */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(2.4rem);
+  transition:
+    opacity var(--dur-slow) var(--ease-out),
+    transform var(--dur-slow) var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }
 }

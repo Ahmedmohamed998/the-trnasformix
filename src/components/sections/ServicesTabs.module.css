@@ -1,0 +1,297 @@
+/* Figma 2096:4688 "Component 16" — 1440 x 936, offset 17px inside its frame. */
+.section {
+  position: relative;
+  width: 100%;
+  height: 105.3rem;
+  background: var(--bg-main);
+}
+
+.stage {
+  position: relative;
+  width: 144rem;
+  max-width: 100%;
+  height: 100%;
+  margin-inline: auto;
+}
+
+/* ---- Tab rail ---------------------------------------------------------- */
+.tabs {
+  position: absolute;
+  left: 34.4rem;
+  top: 11rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: 75.2rem;
+  height: 6rem;
+  padding: 0.2rem 1.2rem;
+  border: 0.03rem solid var(--blue-light);
+  border-radius: 999rem;
+  background: rgba(232, 236, 245, 0.26);
+}
+
+.tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.8rem 1.2rem;
+  border-radius: 999rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  transition:
+    background-color var(--dur) var(--ease-out),
+    color var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.tabIcon {
+  width: 2.4rem;
+  height: 2.4rem;
+  transition:
+    filter var(--dur) var(--ease-out),
+    transform var(--dur) var(--ease-out);
+}
+
+.tab:hover {
+  color: var(--primary);
+  background: rgba(232, 236, 245, 0.9);
+}
+
+.tab:hover .tabIcon {
+  transform: scale(1.1);
+}
+
+.tabActive,
+.tabActive:hover {
+  padding: 1.75rem 1.2rem;
+  background: var(--primary);
+  color: var(--text-inverse);
+}
+
+/* The exported glyphs are drawn in the secondary ink; invert them on the
+   filled pill so the active tab matches the artboard. */
+.tabActive .tabIcon {
+  filter: brightness(0) invert(1);
+}
+
+/* ---- Media card -------------------------------------------------------- */
+.media {
+  position: absolute;
+  left: 10rem;
+  top: 23.9rem;
+  width: 53rem;
+  height: 68.6rem;
+  overflow: hidden;
+  border: 0.03rem solid var(--blue-light-active);
+  border-radius: 1.2rem;
+  background: var(--bg-card);
+}
+
+/* Box supplied per tab by the component — every poster is framed differently
+   inside the card. */
+.mediaImage {
+  position: absolute;
+  left: var(--media-x);
+  top: var(--media-y);
+  width: var(--media-w);
+  height: var(--media-h);
+  max-width: none;
+  object-fit: cover;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+
+.media:hover .mediaImage {
+  transform: scale(1.03);
+}
+
+/* ---- Service list ------------------------------------------------------ */
+.list {
+  position: absolute;
+  left: 79.5rem;
+  top: 23.7rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  width: 54.5rem;
+  height: 68.6rem;
+  padding: 3.25rem 4.05rem;
+  overflow: hidden;
+  border: 0.05rem solid var(--blue-light-active);
+  border-radius: 1.6rem;
+  background: var(--bg-card);
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1.0667rem;
+  width: 100%;
+}
+
+.itemHead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1.0667rem;
+  width: 100%;
+}
+
+.itemIcon {
+  flex-shrink: 0;
+  width: 2.4rem;
+  height: 2.4rem;
+  transition: transform var(--dur) var(--ease-out);
+}
+
+.item:hover .itemIcon {
+  transform: translateY(-0.3rem) scale(1.08);
+}
+
+.itemTitle {
+  font-size: 2.4rem;
+  font-weight: 700;
+  color: var(--primary);
+  white-space: nowrap;
+}
+
+/* Width and size are the measured artboard values, set per item. */
+.itemText {
+  width: var(--item-width);
+  font-size: var(--item-size);
+  font-weight: 400;
+  color: var(--text-secondary);
+  text-align: right;
+  word-break: break-word;
+}
+
+.divider {
+  width: 42.4rem;
+  max-width: 100%;
+  height: 0.1rem;
+  background: var(--blue-light);
+  border: 0;
+  margin: 0;
+  align-self: flex-end;
+}
+
+.dividerWarm {
+  background: #e4e4dc;
+}
+
+/* Cross-fade between tab panels. */
+.panel {
+  display: contents;
+}
+
+.fading {
+  animation: panelIn var(--dur-slow) var(--ease-out) both;
+}
+
+@keyframes panelIn {
+  from {
+    opacity: 0;
+    transform: translateY(1.2rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (max-width: 1024px) {
+  .section {
+    height: auto;
+    padding: 0 2.4rem 8rem;
+  }
+
+  .stage {
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    height: auto;
+  }
+
+  .tabs {
+    position: static;
+    width: 100%;
+    height: auto;
+    justify-content: flex-start;
+    gap: 1.2rem;
+    padding: 0.8rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex-shrink: 0;
+  }
+
+  .tabActive {
+    padding: 0.8rem 1.6rem;
+  }
+
+  .media {
+    position: relative;
+    left: auto;
+    top: auto;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 530 / 500;
+  }
+
+  .mediaImage {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .list {
+    position: static;
+    width: 100%;
+    height: auto;
+    padding: 3.2rem 2.4rem;
+  }
+
+  .itemTitle {
+    white-space: normal;
+    text-align: right;
+  }
+
+  /* Release the measured artboard line width once the card is narrower than
+     the artboard column. */
+  .itemText {
+    width: 100%;
+  }
+}
+
+@media (max-width: 640px) {
+  .itemTitle {
+    font-size: 2rem;
+  }
+
+  .itemText {
+    font-size: 1.6rem;
+  }
+}
+
+/* Wraps a divider with the service row that follows it. */
+.itemBlock {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 3.2rem;
+  width: 100%;
+}

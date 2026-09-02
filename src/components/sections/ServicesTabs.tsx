@@ -117,11 +117,18 @@ const TABS: ServiceTab[] = [
     ],
   },
   {
-    /* Desktop-81 draws this panel's media card as an empty bordered frame. */
     id: "studio",
     label: "استديو الابداع",
     icon: "/icons/lucide-gem.svg",
-    media: null,
+    media: {
+      video: "services-creative",
+      image: "",
+      alt: "استديو الإبداع — إنتاج المحتوى والتسويق الرقمي",
+      width: 530,
+      height: 686,
+      left: 0,
+      top: 0,
+    },
     items: [
       {
         title: "تصميم UI/UX",

@@ -3,7 +3,7 @@
 .hero {
   position: relative;
   width: 100%;
-  height: 92.7rem;
+  height: 100.7rem;
   background: var(--bg-main);
   overflow: hidden;
 }
@@ -49,23 +49,23 @@
 /* The artboard leaves 1440 x 524 clear beneath the copy for the hero film. */
 .video {
   position: absolute;
-  left: 0;
-  top: 40.3rem;
-  width: 100%;
+  left: 50%;
+  top: 48.3rem;
+  width: min(120rem, calc(100% - 4.8rem));
   height: 52.4rem;
+  transform: translateX(-50%);
   overflow: hidden;
   background:
     radial-gradient(120% 140% at 50% 0%, #eef2fa 0%, #ffffff 62%);
 }
 
-/* The showreel is 1920 x 1080 and this band is 1440 x 524, so `cover` keeps
-   the band full-bleed as drawn and trims the film evenly top and bottom. Its
-   action sits centre-frame, so centre the crop rather than anchor it. */
+/* Preserve the complete 16:9 frame. In this shallower band, `contain` also
+   keeps the visible film narrower and centres it without cropping. */
 .video video {
   display: block;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
 }
 
@@ -92,11 +92,13 @@
     position: relative;
     left: auto;
     top: auto;
-    width: 100%;
+    width: calc(100% - 4.8rem);
     height: auto;
+    transform: none;
     aspect-ratio: 1440 / 524;
-    margin-top: 6.4rem;
+    margin: 8rem auto 0;
   }
+
 }
 
 @media (max-width: 640px) {
@@ -115,6 +117,6 @@
 
   .video {
     aspect-ratio: 16 / 10;
-    margin-top: 4.8rem;
+    margin-top: 8rem;
   }
 }

@@ -21,8 +21,7 @@ export function Hero() {
         </Reveal>
       </div>
 
-      {/* The showreel is 1920x1080 and the artboard's band is 1440x524, so
-          `cover` trims it top and bottom — see Hero.module.css. Muted and
+      {/* The complete showreel is contained inside the hero band. Muted and
           inline so it may autoplay; the band's gradient shows through until
           the first frame decodes, which is why there is no poster. */}
       <div className={styles.video}>
